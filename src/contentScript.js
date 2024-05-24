@@ -12,23 +12,25 @@ function showModalOnClick() {
       modal.style.bottom = '50%';
       modal.style.right = '50%';
 
-      modal.style.width = '650px';
-      modal.style.maxWidth = '650px';
+      modal.style.width = '602px';
+      modal.style.maxWidth = '602px';
       modal.style.height = '650px';
       modal.style.maxHeight = '650px';
 
       modal.style.border = '1px solid #000';
-      modal.style.backgroundColor = '#e5e5e5';
+      modal.style.backgroundColor = '#fff';
       modal.style.zIndex = '10000';
 
       modal.style.display = 'flex';
-      modal.style.flexDirection = 'column';
+      modal.style.flexDirection = 'row';
       modal.style.flexWrap = 'wrap';
 
       modal.style.justifyContent = 'center';
       modal.style.alignItems = 'center';
+      modal.style.borderRadius = '8px';
 
       modal.style.margin = 0;
+      modal.style.padding = '0, 0 20px';
 
       const shadow = modal.attachShadow({ mode: 'open' });
       shadow.innerHTML = data;
@@ -36,15 +38,6 @@ function showModalOnClick() {
       // Apply styles directly in the shadow DOM
       const style = document.createElement('style');
       style.textContent = `
-        .modal-container {
-          width: 650px;
-          height: 650px;
-          background-color: gray;
-          border-radius: 8px;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-          display: flex;
-          flex-direction: column;
-        }
         .modal-header {
           display: flex;
           justify-content: space-between;
@@ -52,10 +45,13 @@ function showModalOnClick() {
         }
         .modal-body {
           margin-top: 10px;
-          overflow-y: auto;
           flex-grow: 1;
           display: flex;
-          flex-direction: column;
+          overflow: scroll-y;
+          flex-wrap: wrap;
+          flex-direction: row;
+          width: 100%;
+          height: 58%;
         }
         .close-button {
           background: none;
@@ -64,9 +60,16 @@ function showModalOnClick() {
           cursor: pointer;
         }
         .image-list {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-          gap: 10px;
+          width: 100%;
+          height: 95%;
+          flex-direction: row;
+          flex-wrap: wrap;
+          overflow-y: auto;
+          display: flex;
+          padding: 5px;
+          margin: 5px;
+          gap: 5px;
+          align-items: start;
         }
         .image-item {
           display: flex;
@@ -78,6 +81,34 @@ function showModalOnClick() {
           height: 80px;
           object-fit: cover;
         }
+
+        .modal-footer {
+          display: flex;
+          flex-direction: column;
+          padding: 5px;
+          width: 100%;
+          border-top: 1px solid #ddd;
+        }
+        .modal-footer label {
+          margin: 5px 0;
+        }
+        .modal-footer input,
+        .modal-footer textarea {
+          width: calc(100% - 10px);
+          margin: 5px 0;
+          padding: 5px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+        .modal-footer button {
+          margin-top: 10px;
+          padding: 10px;
+          background-color: #ffff;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          cursor: pointer;
+          text-color: black;
+        }
       `;
       shadow.appendChild(style);
 
@@ -88,18 +119,6 @@ function showModalOnClick() {
       });
 
       const imageList = shadow.getElementById('imageList');
-
-      imageList.style.width = '100%';
-      imageList.style.height = '100%';
-      imageList.style.display = 'flex';
-      imageList.style.flexDirection = 'row';
-      imageList.style.flexWrap = 'wrap';
-      imageList.style.justifyContent = 'center';
-      imageList.style.alignItems = 'center';
-      imageList.style.overflow = 'auto';
-      imageList.style.padding = '0';
-      imageList.style.margin = '5px';
-
       const images = document.querySelectorAll('img');
 
       images.forEach(img => {
